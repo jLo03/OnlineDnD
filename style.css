@@ -1,0 +1,14 @@
+.hero-body{
+	background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("hero.jpg");
+	background-size: cover;
+	background-position: center center;
+
+}
+
+.navbar{
+	color: black;
+}
+
+h1 { font-family: 'Open Sans Condensed', sans-serif; font-size: 48px; color: #333; padding-top:10px; padding-left: 10px}
+
+p {color: #333; font-family: 'Muli', sans-serif; margin-bottom: 15px; , font-size:23px; padding-left: 10px}

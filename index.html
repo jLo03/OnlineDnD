@@ -1,102 +1,106 @@
-<!-- Welcome to some sample code to control your Firebase Database -->
-<!-- HERE IS YOUR HTML TO SET UP YOUR PAGE -->
+<!DOCTYPE html>
 <html>
-    <head>
-        <!-- HERE ARE YOUR FIREBASE and GOOGLE AUTHENICATION IMPORTS -->
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
-    </head>
-    <body >
-            <h1 id="uid"></h1>
-            <p>This app shows basics of Firebase with Javascript. Inspect page and view console to see info.</p>
-            <ol>
-                <li>new firebase project called basic</li>
-                <li>enable google authenication</li>
-                <li>create realtime database in test mode</li>
-                <li>get config from project settings/web</li>
-                <li>copy this code - right click view source - paste to editor</li>
-                <li>save index.html to a folder</li>
-                <li>terminal, cd to folder and invoke local server</li>
-                <li>python -m SimpleHTTPServer</li>
-                <li>try reading/writing to/from different nodes in firebase</li>
-                <li><a href="https://youtu.be/OgL070gjZkI" target="_blank">Explanatory video</a></li>
-                <li><a href="process.html" target="_blank">Example code to process JS Objects returned by Firebase</a></li>
-            </ol>
-            <button onclick="signin()">Sign in</button>
-            <button onclick="getData()">Get data</button>
-            <button onclick="setData()">Set data</button>
-            <button onclick="updateData()">Update data</button>
-            <button onclick="pushData()">Push data</button>
-            <button onclick="removeData()">Remove data</button>
-            <div id="info"></div>
-    </body>
-    
-    <!-- HERE IS THE JAVASCRIPT TO CONNECT TO YOUR FIREBASE -->
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDUgBf0SAmsWlJ-2UCxVl80Bea-dTIGPZE",
-            authDomain: "text-based-game-4cda2.firebaseapp.com",
-            databaseURL: "https://text-based-game-4cda2.firebaseio.com",
-            projectId: "text-based-game-4cda2",
-            storageBucket: "text-based-game-4cda2.appspot.com",
-            messagingSenderId: "93383094960",
-            appId: "1:93383094960:web:2543e2735024e68dfdc175",
-            measurementId: "G-501HXMKGJS"
-          };
-          // Initialize Firebase
-               
-        // Check to see if you are logged in
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user == null) {
-                document.getElementById("uid").innerHTML = "not logged in";
-                return;
-            } else {
-                userId = user.uid; // you can also get .displayName, .photoURL, .email
-                document.getElementById("uid").innerHTML = userId; // display Google uid on page
-                
-            } // end user null check
-        }); // end check auth state
-        
-       // HERE IS THE FUNCTION TO SHOW HOW TO GET USER DATA
-       function getData() {
-           var userId = document.getElementById("uid").innerHTML;
-           firebase.database().ref('/tweets/' + userId).once('value', function(snapshot) {
-               console.log(snapshot.val());
-           });
+<head>
+	<title> Materialize.css</title>
 
-       }
-       
-       // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
-       function setData() {
-           var userId = document.getElementById("uid").innerHTML;
-           var js_time = Date.now();
-           firebase.database().ref('/tweets/' + userId).set({tweet:"Set over-writes", time: js_time}); 
-       }
-        
-       // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
-       function updateData() {
-           var userId = document.getElementById("uid").innerHTML;
-           firebase.database().ref('/tweets/' + userId).update({tweet:"Update replaces data, but will leave non replaced data as is"}); 
-       }
-         
-        // HERE IS THE FUNCTION TO SHOW HOW TO PUSH/ADD NEW USER DATA TO EXISTING DATABASE
-        function pushData() {
-            var userId = document.getElementById("uid").innerHTML;
-            var js_time = Date.now();
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").push({tweet: "push adds to the nodes, a unique key/timestamp is also added", time: js_time});
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
 
-        // HERE IS THE FUNCTION TO SHOW HOW TO REMOVE USER DATA FROM EXISTING DATABASE - BE CAREFUL!
-        function removeData() {
-            var tweetid = firebase.database().ref('tweets/' + userId + "/").remove();
-        }
-        
-        function signin() {
-            var provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithRedirect(provider).then(function(result) { 
-                window.location.replace("fbtest.html");
-            });
-        }
-    </script>
+</head>
+<body>
+
+<section class="hero is-primary is-fullheight ">
+  <div class="hero-head has-background-black-ter">
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <img src="logo.jpg" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenuHeroC" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item is-active has-background-grey-darker">
+              Home
+            </a>
+            <a class="navbar-item">
+              Play now
+            </a>
+            <a class="navbar-item">
+              Forums
+            </a>
+            <span class="navbar-item">
+              <a class="button is-success is-inverted">
+                <span>Login</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <div class="hero-body">
+    <div class="container has-text-left">
+      <p class="title is-1">
+        Dungeons and Dragons Online
+      </p>
+      <p class="subtitle is-3">
+        A text based adventure
+      </p>
+    </div>
+  </div>
+</section> 
+
+<div>
+  <h1> Why  Dungeons and Dragon online? 
+  </h1>
+
+
+  <p> because we are so great and funny you are going to have a great time believe me join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now join now  </[>
+</div>
+
+
+<!--
+<div class="container is-fluid">
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="field">
+        <p class="control">
+          <textarea class="textarea" placeholder="Add a comment..."></textarea>
+        </p>
+      </div>
+      <nav class="level">
+        <div class="level-left">
+          <div class="level-item">
+            <a class="button is-info">Submit</a>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <label class="checkbox">
+              <input type="checkbox"> Press enter to submit
+            </label>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </article>
+</div>
+-->
+
+
+
+</body>
 </html>
